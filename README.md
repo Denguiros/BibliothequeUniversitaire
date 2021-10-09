@@ -5,4 +5,4 @@ Made with symfony
 
 # Class diagram:
 
-![image](https://user-images.githubusercontent.com/59782633/136674876-664cc9e5-af75-4cf8-a2bf-d6a0000b49fe.png)
+![image](https://user-images.githubusercontent.com/59782633/136676371-199ec48b-3a6d-405b-9938-0965e5b01502.png)
