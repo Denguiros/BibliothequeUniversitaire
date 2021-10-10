@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PublicationRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -74,4 +75,10 @@ class Publication
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return "Published by ".$this->author." at ".($this->date)->format("'Y-m-d-H-i-s'");
+    }
+
 }

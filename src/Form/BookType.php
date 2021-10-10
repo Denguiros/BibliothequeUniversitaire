@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class BookType extends AbstractType
 {
@@ -23,12 +24,11 @@ class BookType extends AbstractType
             ->add('price')
             ->add('isbn')
             ->add('category')
-            ->add('editor')
-            ->add('images', FileType::class,[
-                'label' => "Images :",
-                'multiple' => true,
-                'mapped' => false,
-                'required' => false
+            ->add('editor',EditorType::class,[
+                "required"=>true
+            ])
+            ->add('images', VichFileType::class,[
+                "required"=>true
             ])
         ;
     }

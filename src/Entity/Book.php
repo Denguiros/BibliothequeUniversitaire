@@ -6,6 +6,7 @@ use App\Repository\BookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=BookRepository::class)
@@ -52,6 +53,7 @@ class Book
 
     /**
      * @ORM\OneToMany(targetEntity=Image::class, mappedBy="book", orphanRemoval=true,cascade={"persist"})
+     * @Vich\UploadableField(mapping="books")
      */
     private $images;
 
