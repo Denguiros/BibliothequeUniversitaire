@@ -51,7 +51,7 @@ class Book
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="book", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="book", orphanRemoval=true,cascade={"persist"})
      */
     private $images;
 
