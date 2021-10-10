@@ -24,10 +24,6 @@ class Editor
      */
     private $name;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $country;
 
     /**
      * @ORM\Column(type="string", length=25, nullable=true)
@@ -43,6 +39,11 @@ class Editor
      * @ORM\OneToMany(targetEntity=Book::class, mappedBy="editor", orphanRemoval=true)
      */
     private $books;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $country;
 
     public function __construct()
     {
@@ -66,17 +67,6 @@ class Editor
         return $this;
     }
 
-    public function getCountry(): ?int
-    {
-        return $this->country;
-    }
-
-    public function setCountry(?int $country): self
-    {
-        $this->country = $country;
-
-        return $this;
-    }
 
     public function getAddress(): ?string
     {
@@ -130,6 +120,23 @@ class Editor
         }
 
         return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 
 }

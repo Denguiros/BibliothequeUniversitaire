@@ -20,7 +20,7 @@ class Book
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=50)
      */
     private $title;
 
@@ -39,10 +39,6 @@ class Book
      */
     private $nbrCopies;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $price;
 
     /**
      * @ORM\Column(type="integer")
@@ -74,6 +70,11 @@ class Book
      * @ORM\JoinColumn(nullable=false)
      */
     private $editor;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $price;
 
     public function __construct()
     {
@@ -135,17 +136,6 @@ class Book
         return $this;
     }
 
-    public function getPrice(): ?int
-    {
-        return $this->price;
-    }
-
-    public function setPrice(?int $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
 
     public function getIsbn(): ?int
     {
@@ -272,5 +262,21 @@ class Book
         $this->editor = $editor;
 
         return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?float $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->title;
     }
 }
