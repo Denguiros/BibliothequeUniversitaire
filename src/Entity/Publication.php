@@ -78,7 +78,7 @@ class Publication
 
     public function __toString(): string
     {
-        return "Published by ".$this->author." at ".($this->date)->format("'Y-m-d-H-i-s'");
+        return $this->author." published ".$this->book." on the ".($this->date)->format("d/m/Y");
     }
 
 }

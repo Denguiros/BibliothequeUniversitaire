@@ -257,4 +257,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->isVerified;
     }
+
+    public function __toString(): string
+    {
+        return $this->firstName . " " . $this->lastName . " - " . $this->email;
+    }
+
 }
