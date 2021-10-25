@@ -5,4 +5,5 @@ Made with symfony
 
 # Class diagram:
 
-![image](https://user-images.githubusercontent.com/59782633/136677074-6bbcf0ab-597b-4203-874d-cff8c2c84b51.png)
+![Bibleo-Uni drawio](https://user-images.githubusercontent.com/59782633/138758815-defc96e4-0ccb-4e2d-b2c3-25b2696c3a76.png)
+
