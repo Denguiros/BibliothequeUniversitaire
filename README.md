@@ -9,6 +9,6 @@ Made with symfony
 
 # How to use
 
-Run command: npm install to install dependencies
+Run command: npm install to install dependencies <br/>
 Run command: npm run build to build the required files and put them in the public/build folder.
 
