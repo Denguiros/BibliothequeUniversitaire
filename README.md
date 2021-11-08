@@ -5,5 +5,10 @@ Made with symfony
 
 # Class diagram:
 
-![Bibleo-Uni drawio](https://user-images.githubusercontent.com/59782633/138758815-defc96e4-0ccb-4e2d-b2c3-25b2696c3a76.png)
+![Bibleo-Uni drawio](https://user-images.githubusercontent.com/59782633/140836939-1c83da93-9c23-46dd-a599-45a05897860d.png)
+
+# How to use
+
+Run command: npm install to install dependencies
+Run command: npm run build to build the required files and put them in the public/build folder.
 
