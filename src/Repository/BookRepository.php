@@ -19,6 +19,17 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
+    public function getBooksSumValue()
+    {
+        return $this->createQueryBuilder('b')
+            ->select("sum(b.price * b.nbrCopies)")
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
+
+
     // /**
     //  * @return Book[] Returns an array of Book objects
     //  */
@@ -35,6 +46,7 @@ class BookRepository extends ServiceEntityRepository
         ;
     }
     */
+
 
     /*
     public function findOneBySomeField($value): ?Book

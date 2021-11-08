@@ -35,13 +35,15 @@ class Author
     private $biography;
 
     /**
-     * @ORM\OneToMany(targetEntity=Publication::class, mappedBy="author", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity=Book::class, mappedBy="authors")
      */
-    private $publications;
+    private $books;
+
 
     public function __construct()
     {
         $this->publications = new ArrayCollection();
+        $this->books = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,37 +87,35 @@ class Author
         return $this;
     }
 
-    /**
-     * @return Collection|Publication[]
-     */
-    public function getPublications(): Collection
-    {
-        return $this->publications;
-    }
-
-    public function addPublication(Publication $publication): self
-    {
-        if (!$this->publications->contains($publication)) {
-            $this->publications[] = $publication;
-            $publication->setAuthor($this);
-        }
-
-        return $this;
-    }
-
-    public function removePublication(Publication $publication): self
-    {
-        if ($this->publications->removeElement($publication)) {
-            // set the owning side to null (unless already changed)
-            if ($publication->getAuthor() === $this) {
-                $publication->setAuthor(null);
-            }
-        }
-
-        return $this;
-    }
     public function __toString(): string
     {
         return $this->firstName . " " . $this->lastName;
+    }
+
+    /**
+     * @return Collection|Book[]
+     */
+    public function getBooks(): Collection
+    {
+        return $this->books;
+    }
+
+    public function addBook(Book $book): self
+    {
+        if (!$this->books->contains($book)) {
+            $this->books[] = $book;
+            $book->addAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBook(Book $book): self
+    {
+        if ($this->books->removeElement($book)) {
+            $book->removeAuthor($this);
+        }
+
+        return $this;
     }
 }

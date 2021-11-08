@@ -33,7 +33,6 @@ class Image
      * @Vich\UploadableField(mapping="books", fileNameProperty="image")
      * @var File
      */
-    #[Assert\Image(mimeTypes: "image/*")]
     private $imageFile;
 
     /**

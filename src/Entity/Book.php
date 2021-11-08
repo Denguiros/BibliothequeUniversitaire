@@ -42,28 +42,19 @@ class Book
 
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $isbn;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="books")
      */
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="book", orphanRemoval=true,cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="book", orphanRemoval=true,cascade={"persist","remove"})
      * @Vich\UploadableField(mapping="books")
      */
     private $images;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Publication::class, mappedBy="book", orphanRemoval=true)
-     */
-    private $publications;
 
     /**
-     * @ORM\OneToMany(targetEntity=Bookings::class, mappedBy="book", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Borrowing::class, mappedBy="book", orphanRemoval=true)
      */
     private $bookings;
 
@@ -78,11 +69,22 @@ class Book
      */
     private $price;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Author::class, inversedBy="books")
+     */
+    private $authors;
+
+    /**
+     * @ORM\Column(type="bigint")
+     */
+    private $isbn;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->publications = new ArrayCollection();
         $this->bookings = new ArrayCollection();
+        $this->authors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -113,7 +115,14 @@ class Book
 
         return $this;
     }
-
+    public function decreaseNumberOfCopies()
+    {
+        $this->nbrCopies--;
+    }
+    public function increaseNumberOfCopies()
+    {
+        $this->nbrCopies++;
+    }
     public function getEditionDate(): ?\DateTimeInterface
     {
         return $this->editionDate;
@@ -137,20 +146,6 @@ class Book
 
         return $this;
     }
-
-
-    public function getIsbn(): ?int
-    {
-        return $this->isbn;
-    }
-
-    public function setIsbn(int $isbn): self
-    {
-        $this->isbn = $isbn;
-
-        return $this;
-    }
-
 
     public function getCategory(): ?Category
     {
@@ -195,44 +190,14 @@ class Book
     }
 
     /**
-     * @return Collection|Publication[]
-     */
-    public function getPublications(): Collection
-    {
-        return $this->publications;
-    }
-
-    public function addPublication(Publication $publication): self
-    {
-        if (!$this->publications->contains($publication)) {
-            $this->publications[] = $publication;
-            $publication->setBook($this);
-        }
-
-        return $this;
-    }
-
-    public function removePublication(Publication $publication): self
-    {
-        if ($this->publications->removeElement($publication)) {
-            // set the owning side to null (unless already changed)
-            if ($publication->getBook() === $this) {
-                $publication->setBook(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Bookings[]
+     * @return Collection|Borrowing[]
      */
     public function getBookings(): Collection
     {
         return $this->bookings;
     }
 
-    public function addBooking(Bookings $booking): self
+    public function addBooking(Borrowing $booking): self
     {
         if (!$this->bookings->contains($booking)) {
             $this->bookings[] = $booking;
@@ -242,7 +207,7 @@ class Book
         return $this;
     }
 
-    public function removeBooking(Bookings $booking): self
+    public function removeBooking(Borrowing $booking): self
     {
         if ($this->bookings->removeElement($booking)) {
             // set the owning side to null (unless already changed)
@@ -280,5 +245,41 @@ class Book
     public function __toString(): string
     {
         return $this->title;
+    }
+
+    /**
+     * @return Collection|Author[]
+     */
+    public function getAuthors(): Collection
+    {
+        return $this->authors;
+    }
+
+    public function addAuthor(Author $author): self
+    {
+        if (!$this->authors->contains($author)) {
+            $this->authors[] = $author;
+        }
+
+        return $this;
+    }
+
+    public function removeAuthor(Author $author): self
+    {
+        $this->authors->removeElement($author);
+
+        return $this;
+    }
+
+    public function getIsbn(): ?string
+    {
+        return $this->isbn;
+    }
+
+    public function setIsbn(string $isbn): self
+    {
+        $this->isbn = $isbn;
+
+        return $this;
     }
 }

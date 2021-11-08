@@ -65,7 +65,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $telephone;
 
     /**
-     * @ORM\OneToMany(targetEntity=Bookings::class, mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Borrowing::class, mappedBy="user", orphanRemoval=true)
      */
     private $bookings;
 
@@ -224,14 +224,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection|Bookings[]
+     * @return Collection|Borrowing[]
      */
     public function getBookings(): Collection
     {
         return $this->bookings;
     }
 
-    public function addBooking(Bookings $booking): self
+    public function addBooking(Borrowing $booking): self
     {
         if (!$this->bookings->contains($booking)) {
             $this->bookings[] = $booking;
@@ -241,7 +241,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeBooking(Bookings $booking): self
+    public function removeBooking(Borrowing $booking): self
     {
         if ($this->bookings->removeElement($booking)) {
             // set the owning side to null (unless already changed)
@@ -260,7 +260,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __toString(): string
     {
-        return $this->firstName . " " . $this->lastName . " - " . $this->email;
+        return $this->email;
     }
 
 }
