@@ -40,6 +40,32 @@ class BorrowingRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
             ;
     }
+
+    public function userWeeklyRequests($uid){
+        return $this->createQueryBuilder('b')
+                ->andWhere('WEEK(b.requestDateTime)=WEEK(NOW())')
+                ->andWhere('b.user = :uid')
+                ->andWhere('b.status = :req')
+                ->setParameter("req",Constants::REQUESTED)
+                ->setParameter('uid',$uid)
+                ->orderBy('b.requestDateTime','ASC')
+                ->getQuery()
+                ->getResult();
+    }
+
+    public function userWeeklyUnreturned($uid){
+        return $this->createQueryBuilder('b')
+                ->andWhere('WEEK(b.requestDateTime)=WEEK(NOW())')
+                ->andWhere('b.user = :uid')
+                ->andWhere('b.status in (:nvr,:bor)')
+                ->setParameter('nvr', Constants::NEVER_RETURNED)
+                ->setParameter('bor', Constants::BORROWED)
+                ->setParameter('uid',$uid)
+                ->orderBy('b.requestDateTime','ASC')
+                ->getQuery()
+                ->getResult();
+    }
+
     // /**
     //  * @return Borrowing[] Returns an array of Borrowing objects
     //  */

@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @Vich\Uploadable
  */
 
-class Image
+class Image implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -103,4 +103,14 @@ class Image
 
         return $this;
     }
+
+
+    public function jsonSerialize()
+    {
+        return [
+            "id"=> $this->getId(),
+            "image" => $this->getImage()
+        ];
+    }
+
 }

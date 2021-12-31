@@ -11,7 +11,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @ORM\Entity(repositoryClass=BookRepository::class)
  */
-class Book
+class Book implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -282,4 +282,19 @@ class Book
 
         return $this;
     }
+
+
+    public function jsonSerialize()
+    {
+        return [
+            "id"=> $this->getId(),
+            "title" => $this->getTitle(),
+            "nbrPages"=>$this->getNbrPages(),
+            "category"=>$this->getCategory(),
+            "images"=>$this->getImages(),
+            "price"=>$this->getPrice(),
+            "authors"=>$this->getAuthors()
+        ];
+    }
+
 }

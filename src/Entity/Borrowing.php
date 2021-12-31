@@ -36,7 +36,7 @@ class Borrowing
     private $status;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $borrowingDateTime;
 
@@ -44,6 +44,11 @@ class Borrowing
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $returnDateTime;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $requestDateTime;
 
     public function getId(): ?int
     {
@@ -106,6 +111,18 @@ class Borrowing
     public function setReturnDateTime(?\DateTimeInterface $returnDateTime): self
     {
         $this->returnDateTime = $returnDateTime;
+
+        return $this;
+    }
+
+    public function getRequestDateTime(): ?\DateTimeInterface
+    {
+        return $this->requestDateTime;
+    }
+
+    public function setRequestDateTime(?\DateTimeInterface $requestDateTime): self
+    {
+        $this->requestDateTime = $requestDateTime;
 
         return $this;
     }

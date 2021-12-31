@@ -9,8 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
- */
-class Category
+ */ 
+class Category implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -100,5 +100,14 @@ class Category
     public function __toString(): string
     {
         return $this->label;
+    }
+
+
+    public function jsonSerialize()
+    {
+        return [
+            "id"=> $this->getId(),
+            "label" => $this->getLabel()
+        ];
     }
 }

@@ -28,6 +28,41 @@ class BookRepository extends ServiceEntityRepository
             ;
     }
 
+    public function searchBooks($keyword, $priceMax, $categories,$authors,$editors)
+    {
+        $query = $this->createQueryBuilder('b');
+        $query->andWhere("b.title LIKE :keyword");
+        $query->setParameter('keyword', '%'.$keyword.'%');
+        if($categories != null){
+            $query->andWhere("b.category IN (:categories)");
+            $query->setParameter('categories', $categories);
+        }
+        if($priceMax!=null){
+            $query->andWhere("b.price <= :priceMax");
+            $query->setParameter('priceMax', $priceMax);
+        }
+        if($authors!=null){
+           $query->innerJoin("b.authors","a");
+           $query->andWhere("a.id IN (:authors)");
+           $query->setParameter(":authors",$authors);
+        }
+
+        if($editors!=null){
+            $query->andWhere("b.editor IN (:editors)");
+            $query->setParameter(":editors",$editors);
+         }
+       
+        return $query->getQuery()->getResult();
+    }
+
+    /*
+
+     if(!empty($categories)){
+            $query->andWhere("b.category_id IN (:categories)");
+            $query->setParameter('categories', $categories);
+        }
+        
+    */
 
 
     // /**

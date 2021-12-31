@@ -12,6 +12,7 @@ import './bootstrap';
 import Swal from "sweetalert2";
 const $ = require("jquery");
 global.$ = global.jQuery = $;
+require('bootstrap_js');
 require('datatables.net-bs5');
 require('countup.js');
 require('onscreen');

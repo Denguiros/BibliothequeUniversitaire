@@ -60,6 +60,7 @@ class BorrowingController extends AbstractController
             if ($oldStatus != $borrowing->getStatus()) {
                 $borrowing->getBook()->decreaseNumberOfCopies();
             }
+            $borrowing->setBorrowingDateTime(new \DateTime());
             $entityManager->flush();
             return $this->json("Borrowed Successfully");
         }

@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=AuthorRepository::class)
  */
-class Author
+class Author implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -118,4 +118,16 @@ class Author
 
         return $this;
     }
+
+
+    public function jsonSerialize()
+    {
+        return [
+            "id"=> $this->getId(),
+            "firstName" => $this->getFirstName(),
+            "lastName"=>$this->getLastName(),
+            "biography"=>$this->getBiography()
+        ];
+    }
+
 }
