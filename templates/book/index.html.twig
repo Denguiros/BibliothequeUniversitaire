@@ -70,21 +70,28 @@
 
             {% else %}
               {% if( app.user is not null ) %}
-                
+              {% if weeklyBorrows < 3 %}
                   {% if borrowDetails is defined and borrowDetails is not null %}
-                    {% if borrowDetails.status == "Declined" or borrowDetails.status=="Returned" %}
-                      {% if weeklyBorrows < 3 %}
+                    {% if borrowDetails.status == "Declined" or borrowDetails.status=="Returned"  %}
+                      
                         <form method="POST">
                           <div class="mt-3"><button class="btn btn-dark mr-2" type="submit">Book it</button></div>
                         </form>
-                        {% else %}
-                          <div class="mt-3"><button class="btn btn-dark mr-2" type="button">You reached your weekly limit</button></div>
-                      {% endif %}
+                        
                     {% else %}
                     <div class="mt-3"><button class="btn btn-dark mr-2" type="submit">{{borrowDetails.status}}</button></div>
                     {% endif %}
+                  {% else %}
+                   <form method="POST">
+                          <div class="mt-3"><button class="btn btn-dark mr-2" type="submit">Book it</button></div>
+                    </form>
+                    {% endif %}
+                    {% else %}
+                    <div class="mt-3"><button class="btn btn-dark mr-2" type="button">Reached weekly limit</button></div>
+                    
                   {% endif %}
                   <div class="mt-3"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Booking history</button></div>
+
 
               {% else %}
                   <div class="mt-3"><a class="btn btn-dark mr-2" type="button" href="/login">Login first</a></div>

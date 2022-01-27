@@ -67,8 +67,8 @@ class BookController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($borrow);
         $entityManager->flush();
-
-        if(isset($user)){
+        return $this->redirect("/book/{$id}");
+        /*if(isset($user)){
             $borrowDetails = $borrowingRepository->findOneBy(['user'=>$user->getId(),'book'=>$id],['requestDateTime' => 'DESC']);
             $weeklyBorrowings = $borrowingRepository->userWeeklyUnreturned($user->getId());
             $weeklyRequests = $borrowingRepository->userWeeklyRequests($user->getId());
@@ -81,7 +81,8 @@ class BookController extends AbstractController
             $borrowingHistory=[];
 
         }
-        
+
+        $weeklyBorrows = count($weeklyBorrowings) +count($weeklyRequests); 
         return $this->render('book/index.html.twig', [
             'controller_name' => 'BookController',
             'book'=>$bookRepository->findOneBy(['id'=>$id]),
@@ -89,8 +90,9 @@ class BookController extends AbstractController
             "categories" => $categoryRepository->findAll(),
             "borrowingHistory"=>$borrowingHistory,
             "weeklyBorrowings" => $weeklyBorrowings,
+            "weeklyBorrows" => $weeklyBorrows,
             "weeklyRequests"=>$weeklyRequests,
-        ]);
+        ]);*/
     }
     
 }
